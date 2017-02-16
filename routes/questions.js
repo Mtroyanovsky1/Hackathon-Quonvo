@@ -26,7 +26,7 @@ router.get('/api/questions/:questionId', function(req, res){
 				message: "no question with that id"
 			});
 		} else {
-			res.json(question)
+			res.json(question);
 		}
 	});
 });

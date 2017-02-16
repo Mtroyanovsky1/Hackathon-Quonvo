@@ -60,11 +60,71 @@ var questionSchema = mongoose.Schema({
 	}
 });
 
+var chatSchema = mongoose.Schema({
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	question: {
+		type: Schema.ObjectId,
+		ref: 'Question'
+	},
+	rating: {
+		type: Number
+	},
+	messages: [{
+		type: Schema.ObjectId,
+		ref: 'Message'
+	}],
+	questioner: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	answerer: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	closed: {
+		type: Boolean,
+		required: true
+	}
+});
 
-User = mongoose.model('User', userSchema);
-Question = mongoose.model('Question', questionSchema);
+var messageSchema = mongoose.Schema({
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	name: {
+		type: String,
+	},
+	to: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	from: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	content: {
+		type: String,
+		required: 'content is required'
+	},
+	chat: {
+		type: Schema.ObjectId,
+		ref: 'Chat'
+	}
+});
+
+
+var User = mongoose.model('User', userSchema);
+var Question = mongoose.model('Question', questionSchema);
+var Chat = mongoose.model('Chat', chatSchema);
+var Message = mongoose.model('Message', messageSchema);
 
 module.exports = {
     User:User,
-    Question: Question
+    Question: Question,
+    Chat: Chat,
+    Message: Message
 };
