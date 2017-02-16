@@ -2,9 +2,37 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var userSchema = mongoose.Schema({
-  username: String,
-  password: String,
-  phone: String
+	created: {
+		type: Date,
+		default: Date.now
+	},
+  username: {
+		type: String
+	},
+  password: {
+		type: String
+	},
+  firstName: {
+		type: String,
+	},
+	lastName: {
+		type: String
+	},
+	questions: [{
+		type: Schema.ObjectId,
+		ref: 'Question'
+	}],
+	questionChats: [{
+		type: Schema.ObjectId,
+		ref: 'Chat'
+	}],
+	answerChats: [{
+		type: Schema.ObjectId,
+		ref: 'Chat'
+	}],
+	rating: {
+		type: Number
+	}
 });
 
 var questionSchema = mongoose.Schema({
