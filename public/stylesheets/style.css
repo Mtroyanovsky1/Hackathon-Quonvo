@@ -1,5 +1,133 @@
 body {
-  min-height: 75rem;
-  padding-top: 6.5rem;
+  height: 100vh;
+  margin: 0;
   font: 14px "Open Sans", Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#splash {
+  margin: 0;
+  font-weight: normal;
+}
+
+.dash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.nav-container {
+  flex: 8;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav {
+  outline: 2px solid orange;
+  flex: 1;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 92;
+  width: 100vw;
+}
+
+.questions {
+  flex: 1;
+  outline: 2px solid red;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.questions-title {
+  flex: 8;
+  outline: 2px solid purple;
+  width: 25vw;
+}
+
+.questions-list {
+  flex: 92;
+  outline: 2px solid purple;
+  width: 25vw;
+}
+
+.chat {
+  flex: 2;
+  outline: 2px solid green;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-main {
+  flex: 80;
+  width: 50vw;
+  outline: 2px solid purple;
+}
+
+.chat-compose {
+  flex: 10;
+  width: 50vw;
+  outline: 2px solid purple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compose-area {
+  flex: 85;
+  height: 9.2vh;
+  outline: 2px solid green;
+}
+
+.compose-button {
+  flex: 15;
+  height: 9.2vh;
+  outline: 2px solid green;
+}
+
+.chat-list {
+  flex: 10;
+  width: 50vw;
+  outline: 2px solid purple;
+}
+
+.archives {
+  flex: 1;
+  outline: 2px solid blue;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.archives-title {
+  flex: 8;
+  outline: 2px solid purple;
+  width: 25vw;
+}
+
+.archives-list {
+  flex: 92;
+  outline: 2px solid purple;
+  width: 25vw;
 }
