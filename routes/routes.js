@@ -25,24 +25,6 @@ router.use(function(req, res, next){
 // Only logged in users can see these routes
 
 
-router.get('/api/questions', function(req, res){
-
-
-
-});
-
-router.get('/api/questions/:questionId', function(req, res){
-
-
-
-});
-
-router.get('/api/questions/new', function(req, res){
-
-
-
-});
-
 router.get('/protected', function(req, res, next) {
   res.render('protectedRoute', {
     username: req.user.username,
