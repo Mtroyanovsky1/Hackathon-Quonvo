@@ -60,6 +60,7 @@ router.post('/api/chats/new', function(req, res) {
                         if(err) {
                           res.status(400).json(err);
                         } else {
+                          newChat.messages = [newMessage];
                           res.json(newChat);
                         }
                       });
@@ -88,7 +89,9 @@ router.get('/api/chats', function(req, res){
     return res.status(400).json({message: 'Invalid query'});
   }
 
-  Chat.find({_id: {$in: chatType}}, function(err, chats){
+  Chat.find({_id: {$in: chatType}})
+    .populate('messages')
+    .exec(function(err, chats){
     if(err){
       res.status(400).json(err);
     }else{
