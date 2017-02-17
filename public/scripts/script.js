@@ -30,13 +30,28 @@ socket.on('appendQuestion', function(questionObj) {
 });
 
 // server notifies all users to remove question
-socket.on('removeQuestion', function(questionObj) {
+socket.on('newChat', function(data) {
 	$('.questions-list').children('.question').each(function(i) {
-		if ($(this).children('.question-id').text() === questionObj._id) {
+		if ($(this).children('.question-id').text() === data.question._id) {
 			$(this).hide('slow');
+			currentChat = data.chat;
+			displayChat();
 		}
 	});
 });
+
+// displayChat
+var displayChat = function() {
+	$('.chat-main').empty();
+	currentChat.messages.forEach(function(message) {
+		console.log(message.to, myUserId);
+			if (message.to === myUserId) {
+				$('.chat-main').append(messageFromDiv(message));
+			} else {
+				$('.chat-main').append(messageToDiv(message));
+			}
+	});
+};
 
 // build question DOM element
 function questionDivBuilder(questionObj){
