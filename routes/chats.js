@@ -16,25 +16,61 @@ router.post('/api/chats/new', function(req, res) {
     } else if (!question) {
       res.status(400).json({message: "question doesn't exist"});
     } else {
-      //TODO create a new message from the req.body.content
       var newChat = new Chat({
         question: questionId,
         messages: [],
         questioner: question.author,
         answerer: req.user,
-        closed: true,
-      })
+        closed: false
+      });
+
+      var newMessage = new Message({
+        name: req.user.firstName,
+        to: question.author._id,
+        from: req.user._id,
+        content: question.content,
+        chat: newChat._id
+      });
+
       question.chat = newChat._id;
-      req.user.answerChats.push(newChat._id);
-      User.findById(question.author, function (err, user) {
-        if(err) {
-          res.status(400).json(err)
-        } else
-        user.questionChats.push(newChat._id);
-        //Check where user object was created to see whether an empty array was
-        //created. The part you're at right now you just added the chat to
-        //both users
-      })
+      
+
+
+
+      // question.chat = newChat._id;
+      // // question.save(function(err){
+      //   if(err){
+      //     res.status(400).json(err);
+      //   }else{
+
+
+
+
+      //     // req.user.answerChats.push(newChat._id);
+      //     // User.findById(question.author._id, function (err, user) {
+      //     //   if(err) {
+      //     //     res.status(400).json(err)
+      //     //   } else{
+      //     //     user.questionChats.push(newChat._id);
+
+      //     //     newChat.messages.push(question._id);
+
+      //     //     newChat.save(function(err){
+
+      //     //       if(err){
+      //     //         res.status(400).json(err);
+      //     //       } else{
+      //     //         res.send(newChat);
+
+
+
+
+      //     //       }
+      //     //     });
+      //     //   }
+      //     // });
+      //   }
+      // });
     }
   })
 });
