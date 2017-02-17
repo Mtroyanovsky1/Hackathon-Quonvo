@@ -109,6 +109,13 @@ var questionsToTabs = function(question) {
 	 				question.chatId +
 					'</div>'+
 					'</div>'
+
+					/*
+					<div class="chat-head">
+	          <div class="chat-id"></div>
+	          <span class="fa fa-user-circle fa-4x"></span>
+	        </div>
+					*/
 }
 
 
