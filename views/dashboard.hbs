@@ -1,13 +1,43 @@
+<div class="modal-background">
+</div>
+
+<div class="modal">
+  <div class="modal-top">
+    <div class="modal-top-left">
+      What's your question?
+    </div>
+    <div class="modal-top-right">
+      <i class="fa fa-times fa-3x"></i>
+    </div>
+  </div>
+  <div class="modal-bottom">
+    <div class="modal-bottom-left">
+      <select class="categories" name="">
+        <option disabled selected> -- select a category -- </option>
+        <option value="html">html</option>
+        <option value="css">css</option>
+        <option value="javascript">javascript</option>
+        <option value="jquery">jquery</option>
+        <option value="node">node</option>
+      </select>
+      <textarea id="q-input" maxlength="250" placeholder="What's on your mind?"></textarea>
+    </div>
+    <div class="modal-bottom-right">
+      <button id="q-button" type="button" name="button">Ask!</button>
+    </div>
+  </div>
+</div>
+
 <div class="dash-container">
   <div class="nav-container">
     <div class="nav nav-left">
-      <p>Leaderboard</p>
+      <i class="fa fa-trophy fa-4x"></i>
     </div>
     <div class="nav nav-center">
-      <p>Quonvo</p>
+      <i class="fa fa-comments-o fa-4x"></i>
     </div>
     <div class="nav nav-right">
-      <p>Profile</p>
+      <i class="fa fa-user-circle-o fa-4x"></i>
     </div>
   </div>
 
@@ -82,12 +112,15 @@
           <input id="message-body" type="text" name="message-body" placeholder="Your message here..." value="">
         </div>
         <div class="compose-button">
-          <button id="send-button" name="send-button">Send</button>
+          <button id="send-button" name="send-button"><i class="fa fa-telegram fa-4x"></i></button>
         </div>
       </div>
 
       <div class="chat-list">
-
+        <div class="chat-head">
+          <div class="chat-id"></div>
+          <span class="fa fa-user-circle fa-4x"></span>
+        </div>
       </div>
     </div>
 
