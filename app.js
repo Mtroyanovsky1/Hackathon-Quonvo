@@ -119,8 +119,27 @@ app.use(function(err, req, res, next) {
   });
 });
 
+//******Socket Stuff***********
+var server = require('http').createServer(app);
+var socketIo = require('socket.io');
+var io = socketIo(server);
+//*****************************
+
+io.on('connection', function(socket){
+
+  socket.emit('message', 'WELCOME USER!!!');
+
+});
+
+
+//*****************************
+
+
 var port = process.env.PORT || 3000;
-app.listen(port);
+server.listen(port);
 console.log('Express started. Listening on port %s', port);
+
+
+
 
 module.exports = app;
