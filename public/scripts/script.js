@@ -85,6 +85,11 @@ $.ajax({
 /*
 Making an ajax call to populate answerChats global array
 */
+
+
+
+
+
 $.ajax({
 	url: '/api/chats?kindofchat=answers',
 	success: function(chats) {

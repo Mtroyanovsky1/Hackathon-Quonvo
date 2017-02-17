@@ -15,6 +15,22 @@ router.get('/api/questions', function(req, res){
 	});
 });
 
+
+// router.get('/api/questions/closed', function(req, res) {
+// 	Question.find({state: 'closed'})
+// 	 .populate('chat')
+// 	 .exec(function(err, questions) {
+// 		if (err) {
+// 			res.status(400).json(err);
+// 		} else {
+//
+//
+// 			res.json(questions);
+// 		}
+// 	});
+// })
+
+
 router.get('/api/questions/:questionId/close', function(req, res) {
 	var questionId = req.params.questionId;
 
