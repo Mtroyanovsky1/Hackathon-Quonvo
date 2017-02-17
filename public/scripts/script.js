@@ -7,26 +7,34 @@ Handling clicking on a question in question-list
 var currentChatId;
 var currentQuestioner;
 
+var allQuestions;
+
 //***********
 //sockets stuff
 
 var socket = io();
 
 socket.on('connected', function(data){
-
 	console.log('SHIT!!!!!!!!!!!');
-
 });
 
 socket.on('message', function(data){
-
 	console.log(data);
-
-
 });
-
-
 //***********
+
+/*
+Making an ajax call to populate allQuestions global array
+*/
+$.ajax({
+	url: '/api/questions',
+	success: function(assholes){
+		console.log(assholes);
+		allQuestions = assholes;
+		console.log('Retrieved questions: ', allQuestions);
+
+	}
+});
 
 
 $('.questions-list').on('click', '.question', function(event){
