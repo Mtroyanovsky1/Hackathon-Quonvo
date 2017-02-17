@@ -85,7 +85,7 @@ router.get('/api/chats', function(req, res){
   }else if(req.query.kindofchat === 'questions'){
     chatType = req.user.questionChats;
   }else{
-    res.status(400).json({message: 'Invalid query'});
+    return res.status(400).json({message: 'Invalid query'});
   }
 
   Chat.find({_id: {$in: chatType}}, function(err, chats){
