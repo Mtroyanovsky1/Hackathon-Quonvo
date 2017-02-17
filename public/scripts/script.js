@@ -8,7 +8,7 @@ var myUserId;
 var currentChat;
 var currentQuestioner;
 var allQuestions;
-var openQuestions;
+var inProgressQuestions;
 var questionChats;
 var answerChats; // /api/chats?kindofchat=answers
 
@@ -82,6 +82,33 @@ $.ajax({
 	}
 });
 
+var questionsToTabs = function(question) {
+	return '<div class="chat-tab">'+
+				'<div style="display:none" class="chatId">'+
+	 				question.chatId +
+					'</div>'+
+					'</div>'
+}
+
+
+$.ajax({
+	url: '/api/questions/in_progress',
+	success: function(progress) {
+		inProgressQuestions = progress;
+		for(var i = 0; i < progress.length; i++) {
+			$('.chat-list').append(questionsToTabs(progress[i]));
+		}
+	}
+})
+
+
+
+//make an on click version of the shit above
+
+
+
+
+
 /*
 Making an ajax call to populate answerChats global array
 */
@@ -131,6 +158,8 @@ $('.question_submit').on('click', function(event) {
 
 	})
 });
+
+// add tabs for questions that are current in_progress
 
 
 // add blue bubble message in chat from current user
