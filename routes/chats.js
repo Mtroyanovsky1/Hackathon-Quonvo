@@ -24,10 +24,11 @@ router.post('/api/chats/new', function(req, res) {
         closed: false
       });
 
+      // the question asker is sending the message, hence from is set to author
       var newMessage = new Message({
         name: req.user.firstName,
-        to: question.author._id,
-        from: user._id,
+        to: user._id,
+        from: question.author._id,
         content: question.content,
         chat: newChat._id
       });
@@ -69,7 +70,7 @@ router.post('/api/chats/new', function(req, res) {
                     			for (var userId in user_sockets) {
                     				if (user_sockets.hasOwnProperty(userId) && author._id.equals(userId)) {
                     					user_sockets[userId].forEach(function(userSocket) {
-                    						userSocket.emit('removeQuestion', question);
+                    						userSocket.emit('newChat', {question: question, chat: newChat});
                     					});
                     				}
                     			}
