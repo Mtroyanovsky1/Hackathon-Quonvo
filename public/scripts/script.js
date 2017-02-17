@@ -1,5 +1,19 @@
 // YOUR JS CODE FOR ALL PAGES GOES HERE
 
+//Add modal animations
+$('.modal-background').hide();
+$('.modal').hide();
+
+$('#add-question-button').click(function() {
+	$('.modal-background').show();
+	$('.modal').show('fast');
+})
+
+$('.fa-times').click(function() {
+	$('.modal').hide('fast');
+	$('.modal-background').hide();
+})
+
 /*
 Handling clicking on a question in question-list
 */
@@ -120,17 +134,18 @@ $.ajax({
 });
 
 // new question submission handler
-$('.question_submit').on('click', function(event) {
+$('#q-button').on('click', function(event) {
 	$.ajax({
 		url: '/api/questions/new',
 		type: 'POST',
 		data: {
-			title: $('input[name=title]').val(),
-			content: $('input[name=content]').val(),
-			label: $('input[name=label]').val()
+			content: $('#q-input').val(),
+			label: $('#label-select').val()
 		},
 		success: function(question) {
 			console.log(question);
+			$('.modal').hide('fast');
+			$('.modal-background').hide();
 			var questionStr = $(questionDivBuilder(question));
 			$('.questions-list').append(questionStr);
 			questionStr.hide().show('slow');
@@ -204,7 +219,9 @@ $('#send-button').on('click', function(){
 			chatId: currentChat._id
 		},
 		success: function(message){
-			$('.chat-main').append(messageToDiv(message));
+			var poop = $(messageToDiv(message));
+			$('.chat-main').append(poop);
+			poop.hide().show('fast'); //TODO: Fix animation (assume success)
 		}
   });
 });
