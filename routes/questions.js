@@ -15,6 +15,22 @@ router.get('/api/questions', function(req, res){
 	});
 });
 
+router.get('/api/questions/:questionId/close', function(req, res) {
+	var questionId = req.params.questionId;
+
+	Question.findByIdAndUpdate(questionId, {state: 'closed'}, function(err, question) {
+		if (err) {
+			res.status(400).json(err);
+		} else if (!question) {
+			res.status(404).json({
+				message: "no question with that id"
+			});
+		} else {
+			res.json(question);
+		}
+	});
+});
+
 router.get('/api/questions/:questionId', function(req, res){
 	var questionId = req.params.questionId;
 
