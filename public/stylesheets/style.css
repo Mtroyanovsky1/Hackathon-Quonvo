@@ -1,7 +1,7 @@
 body {
   height: 100vh;
   margin: 0;
-  font: 14px "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,15 +30,20 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #fc5a5f;
 }
 
 .nav {
-  outline: 2px solid orange;
+  /*outline: 2px solid orange;*/
   flex: 1;
   height: 8vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#logo {
+  height: 8vh;
 }
 
 /*BODY*/
@@ -55,23 +60,32 @@ body {
 
 .questions {
   flex: 1;
-  outline: 2px solid red;
+  /*outline: 2px solid red;*/
   height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #FFFFFF;
+  /*border-right: 3px solid #fc5a5f;
+  box-sizing: border-box;*/
 }
 
 .questions-title {
   flex: 8;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
   width: 25vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
+  padding-top: 1vh;
+  box-sizing: border-box;
 }
 
 .questions-list {
   flex: 92;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
   width: 25vw;
   display: flex;
   flex-direction: column;
@@ -88,7 +102,7 @@ body {
   align-items: flex-start;
   justify-content: center;
   /*flex: 1;*/
-  border: 2px solid blue;
+  border: 2px solid #0B93F6;
   height: 9vw;
   width: 23vw;
   margin: 1vh;
@@ -117,11 +131,39 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: blue;
-  color: white;
   border-radius: 5px;
   font-weight: bold;
   font-size: 0.75vw;
+}
+
+/*blue*/
+.css-class {
+  background-color: #3498db;
+  color: white;
+}
+
+/*green*/
+.html-class {
+  background-color: #27ae60;
+  color: white;
+}
+
+/*purple*/
+.jquery-class {
+  background-color: #9b59b6;
+  color: white;
+}
+
+/*red*/
+.javascript-class {
+  background-color: #c0392b;
+  color: white;
+}
+
+/*orange*/
+.node-class {
+  background-color: #f39c12;
+  color: white;
 }
 
 .question-body-container {
@@ -138,11 +180,144 @@ body {
   text-align: justify;
 }
 
+#add-question-button {
+  position: absolute;
+  bottom: 3vh;
+  left: 19vw;
+  z-index: 1;
+  transition: transform 0.5s;
+}
+
+#add-question-button:hover {
+  cursor: pointer;
+  transform: rotate(225deg);
+}
+
+.modal-background {
+  position: absolute;
+  top: auto;
+  left: auto;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal {
+  position: absolute;
+  top: 15vh;
+  left: auto;
+  width: 40vw;
+  height: 40vh;
+  z-index: 6;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 7px 2px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 3vw;
+  box-sizing: border-box;
+}
+
+.modal-top {
+  /*border: 1px solid black;*/
+  flex: 3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-top-left {
+  flex: 9;
+  font-size: 2vw;
+  text-align: center;
+  font-weight: bold;
+}
+
+.modal-top-right {
+  flex: 1;
+}
+
+.modal-bottom {
+  /*border: 1px solid black;*/
+  flex: 7;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vh;
+  box-sizing: border-box;
+}
+
+.modal-bottom-left {
+  flex: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+}
+
+.categories {
+  width: 22vw;
+  height: 3vh;
+  font-size: 1vw;
+  margin: 0 0 1vh 0;
+  font-family: "Helvetica Neue";
+  border-radius: 5px;
+}
+
+.categories:focus {
+  outline: none;
+}
+
+#q-input {
+  width: 21vw;
+  height: 15vh;
+  word-wrap: break-word;
+  border-radius: 5px;
+  font-size: 1vw;
+  font-family: "Helvetica Neue";
+  resize: none;
+  padding: 0.5vw;
+}
+
+#q-input:focus {
+  outline: none;
+}
+
+.modal-bottom-right {
+  flex: 3;
+}
+
+#q-button {
+  border: 0;
+  width: 7vw;
+  height: 5vh;
+  border-radius: 10px;
+  background-color: #0B93F6;
+  float: right;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5vw;
+}
+
+#q-button:hover {
+  cursor: pointer;
+}
+
+#q-button:focus {
+  outline: none;
+}
+
 /*CHAT SECTION*/
 
 .chat {
   flex: 2;
-  outline: 2px solid green;
+  /*outline: 2px solid green;*/
   height: 92vh;
   display: flex;
   flex-direction: column;
@@ -150,16 +325,19 @@ body {
   justify-content: center;
 }
 
+.chat-main::-webkit-scrollbar {
+  display: none !important;
+}
+
 .chat-main {
   flex: 80;
   width: 50vw;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
   overflow-y: scroll;
   overflow-x: hidden;
-  /*display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;*/
+  padding: 0 0.5vw;
+  box-sizing: border-box;
+  margin: 0.5vw 0;
 }
 
 .from-me {
@@ -171,7 +349,7 @@ body {
   border-radius: 20px;
   padding: 1vh 1vw;
   color: white;
-  background-color: #0B93F6;
+  background-color: #3498db;
 }
 
 .from-them {
@@ -193,7 +371,7 @@ body {
 .chat-compose {
   flex: 10;
   width: 50vw;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,8 +379,8 @@ body {
 
 .compose-area {
   flex: 85;
-  height: calc(92vh / 10);
-  outline: 2px solid green;
+  height: 9.2vh;
+  /*outline: 2px solid green;*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,44 +393,74 @@ body {
 
 .compose-button {
   flex: 15;
-  height: calc(92vh / 10);
-  outline: 2px solid green;
+  height: 9.2vh;
+  /*outline: 2px solid green;*/
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #send-button {
-  width: 5vw;
+  width: 6vh;
   height: 6vh;
+  border-radius: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+}
+
+#send-button:hover {
+  cursor: pointer;
+}
+
+#send-button:focus {
+  outline: none;
 }
 
 .chat-list {
   flex: 10;
   width: 50vw;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 4vw;
+  box-sizing: border-box;
+}
+
+.chat-id {
+  display: none;
 }
 
 /*ARCHIVE SECTION*/
 
 .archives {
   flex: 1;
-  outline: 2px solid blue;
+  /*outline: 2px solid #0B93F6;*/
   height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #FFFFFF;
 }
 
 .archives-title {
   flex: 8;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
   width: 25vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
+  padding-top: 1vh;
+  box-sizing: border-box;
 }
 
 .archives-list {
   flex: 92;
-  outline: 2px solid purple;
+  /*outline: 2px solid purple;*/
   width: 25vw;
 }
