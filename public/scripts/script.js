@@ -25,12 +25,15 @@ socket.on('onConnect', function(userId){
 	myUserId = userId;
 });
 
+// build question DOM element
 function questionDivBuilder(questionObj){
 	var str = '';
-	var str = '<div class="question"><div class="question-id"></div>';
+	var str = '<div class="question"><div class="question-id">' + questionObj._id + '</div>';
 	str += '<div class="question-title">';
-	str += '<span id="label" class="CLASS OF LABEL">CSS</span>';
-	str += '</div><div class="question-body-container">';
+	str += '<span id="label" class="' + questionObj.label + '-class">' + questionObj.label + '</span>';
+	str += '</div>';
+	str += '<div class="question-author" style="display: none;">' + questionObj.author + '</div>';
+	str += '<div class="question-body-container">';
 	str += questionObj.content;
 	str += '</div></div>';
 	return str;
@@ -50,6 +53,7 @@ $.ajax({
 		});
 	}
 });
+
 /*
 Making an ajax call to populate answerChats global array
 */
@@ -64,7 +68,6 @@ $.ajax({
 /*
 Making an ajax call to populate questionChats global array
 */
-
 $.ajax({
 	url: '/api/chats?kindofchat=questions',
 	success: function(chats) {
@@ -73,7 +76,7 @@ $.ajax({
 	}
 })
 
-
+// new question submission handler
 $('.question_submit').on('click', function(event) {
 	$.ajax({
 		url: '/api/questions/new',
@@ -85,6 +88,9 @@ $('.question_submit').on('click', function(event) {
 		},
 		success: function(question) {
 			console.log(question);
+			var questionStr = $(questionDivBuilder(question));
+			$('.questions-list').append(questionStr);
+			questionStr.hide().show('slow');
 		},
 		error: function(error) {
 			console.log("fuck", error);
@@ -93,29 +99,36 @@ $('.question_submit').on('click', function(event) {
 	})
 });
 
-//function to replace the view html
 
-
+// add blue bubble message in chat from current user
 var messageToDiv = function(message) {
-	return `<div class="from-me">${message.content}</div>`;
+	return `<div class="clear"></div><div class="from-me">${message.content}</div>`;
 };
 
+// add gray bubble message from recipient
 var messageFromDiv = function(message) {
-		return `<div class="to-me">${message.content}</div>`;
+		return `<div class="clear"></div><div class="from-them">${message.content}</div>`;
 };
 
+// handle clicking on a question
 $('.questions-list').on('click', '.question', function(event){
 	event.preventDefault();
 
-	// var question = $(this).children('.question-body-container').text();
-	// console.log($(this).children('.question-body-container').text());
-	$.ajax({
+	// prevent creating chat for own question
+	if (myUserId === $(this).children('.question-author').text()) {
+		console.log('clicked own thing');
+		return false;
+	}
 
+	// fade out the question
+	$(self).hide('slow');
+
+	// create new chat for the question
+	$.ajax({
 		type: "POST",
 		data: {questionId: $(this).children('.question-id').text()},
 		url: '/api/chats/new',
 		success: function(result){
-
 			currentChat = result;
 			currentQuestioner = result.questioner;
 
