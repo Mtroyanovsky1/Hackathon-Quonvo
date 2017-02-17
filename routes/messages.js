@@ -22,7 +22,7 @@ router.get('/api/messages/:chatId', function(req, res) {
 });
 
 
-router.post('/api/messages/new', function(res, req) {
+router.post('/api/messages/new', function(req, res) {
   //post request must include {
   // toId: ObjectId,
   // content: String,
@@ -30,6 +30,7 @@ router.post('/api/messages/new', function(res, req) {
   //
   // }
   var newMessage = new Message({
+    name: req.user.firstName,
     to: req.body.toId,
     from: req.user._id,
     content: req.body.content,
@@ -47,7 +48,19 @@ router.post('/api/messages/new', function(res, req) {
         if(err) {
           res.status(400).json(err);
         } else {
-          res.json(newMessage);
+          chat.save(function(err) {
+            if (err) {
+              res.status(400).json(err);
+            } else {
+              // send to all users except author
+        			var user_sockets = req.app.settings.user_sockets;
+        			user_sockets[req.body.toId].forEach(function(userSocket) {
+    						userSocket.emit('getMessage', newMessage);
+    					});
+
+              res.json(newMessage);
+            }
+          });
         }
       });
     }

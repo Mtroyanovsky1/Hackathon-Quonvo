@@ -39,6 +39,13 @@ socket.on('newChat', function(data) {
 	});
 });
 
+// server notifies recipient
+socket.on('getMessage', function(message) {
+	var m = $(messageFromDiv(message));
+	$('.chat-main').append(m);
+	m.hide().show('fast');
+});
+
 // displayChat
 var displayChat = function() {
 	$('.chat-main').empty();
@@ -197,7 +204,7 @@ $('#send-button').on('click', function(){
 			chatId: currentChat._id
 		},
 		success: function(message){
-			$('.chat-main').append(messageFromDiv(message));
+			$('.chat-main').append(messageToDiv(message));
 		}
   });
 });
