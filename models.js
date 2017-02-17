@@ -53,7 +53,7 @@ var questionSchema = mongoose.Schema({
 		ref: 'User',
 		required: 'author is required'
 	},
-	subject: {
+	label: {
 		type: String,
 		enum: ['html', 'css', 'javascript', 'node', 'jquery', 'general'],
 		default: 'general'
