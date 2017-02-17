@@ -49,6 +49,8 @@ socket.on('newChat', function(data) {
 		if ($(this).children('.question-id').text() === data.question._id) {
 			$(this).hide('slow');
 			currentChat = data.chat;
+			allChats.push(data.chat);
+			updateChatTabs();
 			displayChat();
 		}
 	});
@@ -57,8 +59,15 @@ socket.on('newChat', function(data) {
 // server notifies recipient
 socket.on('getMessage', function(message) {
 	var m = $(messageFromDiv(message));
-	$('.chat-main').append(m);
-	m.hide().show('fast');
+	allChats.forEach(function(chat) {
+		if (chat._id === message.chat) {
+			allChats[allChats.indexOf(chat)].messages.push(message);
+		}
+		if (currentChat._id === message.chat) {
+			$('.chat-main').append(m);
+			m.hide().show('fast');
+		}
+	});
 });
 
 // convert question chat to a chat tab
@@ -276,9 +285,16 @@ $('#send-button').on('click', function(){
 			chatId: currentChat._id
 		},
 		success: function(message){
-			var poop = $(messageToDiv(message));
-			$('.chat-main').append(poop);
-			poop.hide().show('fast'); //TODO: Fix animation (assume success)
+			var m = $(messageToDiv(message));
+			allChats.forEach(function(chat) {
+				if (chat._id === message.chat) {
+					allChats[allChats.indexOf(chat)].messages.push(message);
+				}
+				if (currentChat._id === message.chat) {
+					$('.chat-main').append(m);
+					m.hide().show('fast');
+				}
+			});
 		}
   });
 });
