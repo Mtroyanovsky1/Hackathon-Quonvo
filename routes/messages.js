@@ -38,7 +38,7 @@ router.post('/api/messages/new', function(res, req) {
     from: req.user._id,
     content: req.body.content,
     chat: req.body.chatId
-  })
+  });
 
   Chat.findById(req.body.chatId, function(err, chat) {
     if(err) {
