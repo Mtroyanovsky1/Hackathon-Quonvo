@@ -15,6 +15,35 @@ router.get('/api/questions', function(req, res){
 	});
 });
 
+
+router.get('/api/questions/open', function(req, res) {
+	Question.find({state: 'open'})
+	 .populate('chat')
+	 .exec(function(err, questions) {
+		if (err) {
+			res.status(400).json(err);
+		} else {
+			res.json(questions);
+		}
+	});
+})
+
+
+
+
+router.get('/api/questions/in_progress', function(req, res) {
+	Question.find({state: 'in_progress'})
+	 .populate('chat')
+	 .exec(function(err, questions) {
+		if (err) {
+			res.status(400).json(err);
+		} else {
+			res.json(questions);
+		}
+	});
+})
+
+
 router.get('/api/questions/:questionId/close', function(req, res) {
 	var questionId = req.params.questionId;
 

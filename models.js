@@ -55,7 +55,7 @@ var questionSchema = mongoose.Schema({
 	},
 	label: {
 		type: String,
-		enum: ['html', 'css', 'javascript', 'node', 'jquery', 'general'],
+		enum: ['html', 'css', 'javascript', 'node', 'jquery'],
 		default: 'general'
 	},
 	chat: {
