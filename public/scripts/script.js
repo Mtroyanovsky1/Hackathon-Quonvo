@@ -222,8 +222,8 @@ $('.questions-list').on('click', '.question', function(event){
 		url: '/api/chats/new',
 		success: function(chat){
 			currentChat = chat;
-
-			$('.chat-main').append(messageFromDiv(chat.messages[0]));
+			displayChat()
+			// $('.chat-main').append(messageFromDiv(chat.messages[0]));
 			// the first message Id of the chat is in results.message[0]
 			console.log(chat);
 		}
