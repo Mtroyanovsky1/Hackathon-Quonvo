@@ -69,6 +69,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  box-sizing: border-box;
+  padding-bottom: 2vw;
+  padding-top: 1vw;
 }
 
 .question {
@@ -78,13 +81,13 @@ body {
   justify-content: center;
   /*flex: 1;*/
   border: 2px dashed blue;
-  height: 19vh;
+  height: 11vw;
   width: 23vw;
   margin: 1vh;
-  border-radius: 3vh;
+  border-radius: 20px;
 }
 
-#question-before {
+/*#question-before {
   height: 1vh;
   width: 25vw;
 }
@@ -92,12 +95,12 @@ body {
 #question-after {
   height: 2vh;
   width: 25vw;
-}
+}*/
 
 .question-title {
-  height: 5vh;
+  height: 3vw;
   width: 23vw;
-  outline: 1px solid red;
+  /*outline: 1px solid red;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,24 +108,32 @@ body {
 }
 
 #label {
-  height: 3vh;
+  height: 2vw;
+  line-height: 2vw;
   text-align: center;
-  padding: 1vh;
+  padding: 0 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  box-sizing: border-box;
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.75vw;
 }
 
 .question-body-container {
-  height: 14vh;
+  height: 8vw;
   /*max-height: 15.2vh;
   max-width: 23vw;*/
   width: 23vw;
-  outline: 1px solid red;
-  padding: 1.5vh;
+  /*outline: 1px solid red;*/
+  padding: 0 1vw 1vw 1vw;
   word-wrap: break-word;
   box-sizing: border-box;
+  overflow: hidden;
+  font-size: 1vw;
+  text-align: justify;
 }
 
 /*#question-body {
