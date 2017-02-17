@@ -12,6 +12,8 @@ body {
   font-weight: normal;
 }
 
+/*HOUSES ALL OF MAIN PAGE*/
+
 .dash-container {
   display: flex;
   flex-direction: column;
@@ -19,6 +21,8 @@ body {
   justify-content: center;
   height: 100vh;
 }
+
+/*NAV BAR*/
 
 .nav-container {
   flex: 8;
@@ -37,6 +41,8 @@ body {
   justify-content: center;
 }
 
+/*BODY*/
+
 .body-container {
   display: flex;
   align-items: center;
@@ -44,6 +50,8 @@ body {
   flex: 92;
   width: 100vw;
 }
+
+/*QUESTIONS SECTION*/
 
 .questions {
   flex: 1;
@@ -80,22 +88,16 @@ body {
   align-items: flex-start;
   justify-content: center;
   /*flex: 1;*/
-  border: 2px dashed blue;
-  height: 11vw;
+  border: 2px solid blue;
+  height: 9vw;
   width: 23vw;
   margin: 1vh;
   border-radius: 20px;
 }
 
-/*#question-before {
-  height: 1vh;
-  width: 25vw;
+.question-id {
+  display: none;
 }
-
-#question-after {
-  height: 2vh;
-  width: 25vw;
-}*/
 
 .question-title {
   height: 3vw;
@@ -108,8 +110,8 @@ body {
 }
 
 #label {
-  height: 2vw;
-  line-height: 2vw;
+  height: 1.5vw;
+  line-height: 1.5vw;
   text-align: center;
   padding: 0 1vw;
   white-space: nowrap;
@@ -136,11 +138,6 @@ body {
   text-align: justify;
 }
 
-/*#question-body {
-  width: 23vw;
-  height: 15.2vh;
-}*/
-
 /*CHAT SECTION*/
 
 .chat {
@@ -157,6 +154,40 @@ body {
   flex: 80;
   width: 50vw;
   outline: 2px solid purple;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /*display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;*/
+}
+
+.from-me {
+  width: 20vw;
+  position: relative;
+  float: right;
+  top: 1vw;
+  right: 1vw;
+  border-radius: 20px;
+  padding: 1vh 1vw;
+  color: white;
+  background-color: #0B93F6;
+}
+
+.from-them {
+  width: 20vw;
+  position: relative;
+  top: 1vw;
+  left: 1vw;
+  float: left;
+  border-radius: 20px;
+  padding: 1vh 1vw;
+  background-color: #E5E5EA;
+}
+
+.clear {
+  clear: both;
+  height: 1vh;
 }
 
 .chat-compose {
@@ -172,12 +203,28 @@ body {
   flex: 85;
   height: calc(92vh / 10);
   outline: 2px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#message-body {
+  width: 41vw;
+  height: 6vh;
 }
 
 .compose-button {
   flex: 15;
   height: calc(92vh / 10);
   outline: 2px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#send-button {
+  width: 5vw;
+  height: 6vh;
 }
 
 .chat-list {
@@ -185,6 +232,8 @@ body {
   width: 50vw;
   outline: 2px solid purple;
 }
+
+/*ARCHIVE SECTION*/
 
 .archives {
   flex: 1;
