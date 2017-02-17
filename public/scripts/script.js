@@ -4,7 +4,6 @@ $('.questions-list').on('click', '.question', function(event){
 	
 	// var question = $(this).children('.question-body-container').text();
 	// console.log($(this).children('.question-body-container').text());
-
 	$.ajax({
 
 		type: "POST",
