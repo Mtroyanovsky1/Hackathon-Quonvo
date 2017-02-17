@@ -40,10 +40,6 @@ var questionSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	title: {
-		type: String,
-		required: 'title is required'
-	},
 	content: {
 		type: String,
 		required: 'content is required'
