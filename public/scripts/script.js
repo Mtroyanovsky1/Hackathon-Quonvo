@@ -63,36 +63,36 @@ socket.on('getMessage', function(message) {
 
 // convert question chat to a chat tab
 var questionChatToTab = function(chat) {
-	return '<div class="questionchat-head"> \
+	return '<div class="chat-head"> \
           	<div class="chat-id"></div> \ ' +
 						'<div style="display:none" class="chatId">'+
 			 				chat._id +
 						'</div>' +
-          	'<span class="fa fa-user-circle fa-4x"></span> \
+          	'<div class="fa fa-user-circle fa-4x question-chat-head"></div> \
         	</div>';
 };
 
 // convert answer chat to a chat tab
 var answerChatToTab = function(chat) {
-	return '<div class="answerchat-head"> \
+	return '<div class="chat-head"> \
           	<div class="chat-id"></div> \ ' +
 						'<div style="display:none" class="chatId">'+
 			 				chat._id +
 						'</div>' +
-          	'<span class="fa fa-user-circle fa-4x"></span> \
+          	'<div class="fa fa-user-circle fa-4x answer-chat-head"></div> \
         	</div>';
 };
 
 var updateChatTabs = function() {
 	$('.chat-list').empty();
 	allChats.forEach(function(chat) {
-		if (chat.questioner === myUserId) {
+		if (chat.questioner === myUserId && !chat.closed) {
 			$('.chat-list').append(questionChatToTab(chat));
 		} else {
 			$('.chat-list').append(answerChatToTab(chat));
 		}
 	});
-}
+};
 
 // displayChat
 var displayChat = function() {
@@ -107,6 +107,16 @@ var displayChat = function() {
 			}
 	});
 };
+
+$('.chat-list').on('click', '.chat-head', function(event) {
+	event.preventDefault();
+	var currentChatId = $(this).children('.chatId').text();
+	currentChat = allChats.filter(function(chat) {
+		return chat._id === currentChatId;
+	})[0];
+
+	displayChat();
+});
 
 // build question DOM element
 function questionDivBuilder(questionObj){
