@@ -154,7 +154,7 @@ io.on('connection', function(socket){
     console.log('user has disconnected', app.settings.user_sockets[userId].length);
   });
 
-  socket.emit('message', app.settings.user_sockets[userId].length);
+  socket.emit('onConnect', app.settings.user_sockets[userId].length);
 });
 //*****************************
 
