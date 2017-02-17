@@ -163,7 +163,7 @@ io.on('connection', function(socket){
 //*****************************
 
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3004;
 server.listen(port);
 console.log('Express started. Listening on port %s', port);
 

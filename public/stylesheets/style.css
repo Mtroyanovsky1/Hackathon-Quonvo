@@ -131,6 +131,7 @@ body {
   margin: 1vh;
   border-radius: 20px;
   background-color: rgba(252,90,95,0.5);
+  box-shadow: 5px 5px 2px #888888
 }
 
 .question-id {
