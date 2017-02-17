@@ -7,7 +7,6 @@ var myUserId;
 
 var currentChat;
 var currentQuestioner;
-
 var allQuestions;
 
 var questionChats;
@@ -15,7 +14,6 @@ var answerChats; // /api/chats?kindofchat=answers
 
 //***********
 //sockets stuff
-
 var socket = io();
 
 socket.on('connected', function(data){
@@ -26,7 +24,17 @@ socket.on('onConnect', function(userId){
 	console.log("userid", userId);
 	myUserId = userId;
 });
-//***********
+
+function questionDivBuilder(questionObj){
+	var str = '';
+	var str = '<div class="question"><div class="question-id"></div>';
+	str += '<div class="question-title">';
+	str += '<span id="label" class="CLASS OF LABEL">CSS</span>';
+	str += '</div><div class="question-body-container">';
+	str += questionObj.content;
+	str += '</div></div>';
+	return str;
+};
 
 /*
 Making an ajax call to populate allQuestions global array
@@ -36,6 +44,10 @@ $.ajax({
 	success: function(assholes){
 		allQuestions = assholes;
 		console.log('Retrieved questions: ', allQuestions);
+		allQuestions.forEach(function(question){
+			var questionStr = questionDivBuilder(question);
+			$('.questions-list').append(questionStr);
+		});
 	}
 });
 /*
@@ -92,8 +104,6 @@ var messageFromDiv = function(message) {
 		return `<div class="to-me">${message.content}</div>`;
 };
 
-
-
 $('.questions-list').on('click', '.question', function(event){
 	event.preventDefault();
 
@@ -116,7 +126,6 @@ $('.questions-list').on('click', '.question', function(event){
 	});
 
 });
-
 
 /*
 Handling clicking on a question in question-list
@@ -145,17 +154,6 @@ $('#send-button').on('click', function(){
 
 			$('.chat-main').append('<div class="clear"></div>');
 			$('.chat-main').append(`<div class="from-them">${result.content}</div>`);
-
-
-
-			/*
-
-				<div class="chat-main">
-					<div class="clear"></div>
-			        <div class="from-them">
-			          Hello, this is RICKY SHAAAARMAAAAA
-			        </div>
-			*/
 		}
   	});
 });
