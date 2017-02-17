@@ -6,9 +6,6 @@ var Chat = models.Chat;
 var Message = models.Message;
 var Question = models.Question;
 
-
-
-
 router.get('/api/messages/:chatId', function(req, res) {
   var chatId = req.params.chatId;
   Chat.findById(chatId)
@@ -33,7 +30,6 @@ router.post('/api/messages/new', function(res, req) {
   //
   // }
   var newMessage = new Message({
-    name: req.user.firstName,
     to: req.body.toId,
     from: req.user._id,
     content: req.body.content,
