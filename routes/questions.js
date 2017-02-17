@@ -6,7 +6,7 @@ var Question = models.Question;
 
 
 router.get('/api/questions', function(req, res){
-	Question.find({}, function(err, questions) {
+	Question.find({state: 'open'}, function(err, questions) {
 		if (err) {
 			res.status(400).json(err);
 		} else {
@@ -59,6 +59,15 @@ router.post('/api/questions/new', function(req, res){
 		if (err) {
 			res.status(400).json(err);
 		} else {
+			// send to all users except author
+			var user_sockets = req.app.settings.user_sockets;
+			for (var userId in user_sockets) {
+				if (user_sockets.hasOwnProperty(userId) && !req.user._id.equals(userId)) {
+					user_sockets[userId].forEach(function(userSocket) {
+						userSocket.emit('appendQuestion', question);
+					});
+				}
+			}
 			res.json(question);
 		}
 	});

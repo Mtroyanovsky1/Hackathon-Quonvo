@@ -16,13 +16,26 @@ var answerChats; // /api/chats?kindofchat=answers
 //sockets stuff
 var socket = io();
 
-socket.on('connected', function(data){
-	console.log('SHIT!!!!!!!!!!!');
-});
-
+// get my user Id from server on first connection
 socket.on('onConnect', function(userId){
 	console.log("userid", userId);
 	myUserId = userId;
+});
+
+// server notifies all users when new question was added
+socket.on('appendQuestion', function(questionObj) {
+	var questionStr = $(questionDivBuilder(questionObj));
+	$('.questions-list').append(questionStr);
+	questionStr.hide().show('slow');
+});
+
+// server notifies all users to remove question
+socket.on('removeQuestion', function(questionObj) {
+	$('.questions-list').children('.question').each(function(i) {
+		if ($(this).children('.question-id').text() === questionObj._id) {
+			$(this).hide('slow');
+		}
+	});
 });
 
 // build question DOM element
@@ -121,20 +134,20 @@ $('.questions-list').on('click', '.question', function(event){
 	}
 
 	// fade out the question
-	$(self).hide('slow');
+	$(this).hide('slow');
 
 	// create new chat for the question
 	$.ajax({
 		type: "POST",
 		data: {questionId: $(this).children('.question-id').text()},
 		url: '/api/chats/new',
-		success: function(result){
-			currentChat = result;
-			currentQuestioner = result.questioner;
+		success: function(chat){
+			currentChat = chat;
+			currentQuestioner = chat.questioner;
 
-			$('.chat-main').append(messageFromDiv(result.messages[0]));
+			$('.chat-main').append(messageFromDiv(chat.messages[0]));
 			// the first message Id of the chat is in results.message[0]
-			console.log(result);
+			console.log(chat);
 		}
 	});
 

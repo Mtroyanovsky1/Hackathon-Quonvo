@@ -137,13 +137,17 @@ app.set('user_sockets', {});
 
 // new user has connected
 io.on('connection', function(socket){
+  if (!socket.request.session.passport) {
+    console.log("USER IS NOT LOGGED IN");
+    return false;
+  }
   var userId = socket.request.session.passport.user;
   if (userId) {
     if (!app.settings.user_sockets[userId]) {
       app.settings.user_sockets[userId] = [];
     }
 
-    app.settings.user_sockets[userId].push(socket.request.session);
+    app.settings.user_sockets[userId].push(socket);
 
   } else {
     console.log("USER IS NOT LOGGED IN");
