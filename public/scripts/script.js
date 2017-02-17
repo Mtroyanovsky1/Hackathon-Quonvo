@@ -7,6 +7,28 @@ Handling clicking on a question in question-list
 var currentChatId;
 var currentQuestioner;
 
+//***********
+//sockets stuff
+
+var socket = io();
+
+socket.on('connected', function(data){
+
+	console.log('SHIT!!!!!!!!!!!');
+
+});
+
+socket.on('message', function(data){
+
+	console.log(data);
+
+
+});
+
+
+//***********
+
+
 $('.questions-list').on('click', '.question', function(event){
 	event.preventDefault();
 	

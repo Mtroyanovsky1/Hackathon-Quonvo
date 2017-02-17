@@ -39,11 +39,21 @@ router.post('/api/messages/new', function(res, req) {
     content: req.body.content,
     chat: req.body.chatId
   });
-  newMessage.save(function(err) {
+
+  Chat.findById(req.body.chatId, function(err, chat) {
     if(err) {
-      res.status(400).json(err);
+      res.status(400).json()
+    } else if (!chat) {
+      res.status(400).json({message: "chat not found"});
     } else {
-      res.json(newMessage);
+      chat.messages.push(newMessage._id);
+      newMessage.save(function(err) {
+        if(err) {
+          res.status(400).json(err);
+        } else {
+          res.json(newMessage);
+        }
+      });
     }
   });
 });
