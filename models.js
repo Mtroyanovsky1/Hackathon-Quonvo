@@ -57,6 +57,10 @@ var questionSchema = mongoose.Schema({
 		type: String,
 		enum: ['html', 'css', 'javascript', 'node', 'jquery', 'general'],
 		default: 'general'
+	},
+	chat: {
+	type: Schema.ObjectId,
+	ref: 'Chat'
 	}
 });
 
