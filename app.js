@@ -127,7 +127,7 @@ var io = socketIo(server);
 
 io.on('connection', function(socket){
 
-  socket.emit('message', 'WELCOME USER!!!');
+  socket.emit('message', socket.handshake);
 
 });
 

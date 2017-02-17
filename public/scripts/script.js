@@ -11,9 +11,9 @@ socket.on('connected', function(data){
 
 });
 
-socket.on('message', function(){
+socket.on('message', function(data){
 
-	console.log('Mesage has arrived!!!!');
+	console.log(data);
 
 
 });
