@@ -8,7 +8,7 @@ var myUserId;
 var currentChat;
 var currentQuestioner;
 var allQuestions;
-
+var openQuestions;
 var questionChats;
 var answerChats; // /api/chats?kindofchat=answers
 
