@@ -76,5 +76,38 @@ router.post('/api/chats/new', function(req, res) {
 });
 
 
+router.get('/api/chats', function(req, res){
+
+  var chatType;
+
+  if(req.query.kindofchat === 'answers'){
+    chatType = req.user.answerChats;
+  }else if(req.query.kindofchat === 'questions'){
+    chatType = req.user.questionChats;
+  }else{
+    res.status(400).json({message: 'Invalid query'});
+  }
+
+  Chat.find({_id: {$in: chatType}}, function(err, chats){
+    if(err){
+      res.status(400).json(err);
+    }else{
+      res.json(chats);
+    }
+  });
+});
+
+router.get('/api/chats/:chatId', function(req, res){
+
+  Chat.findById(req.params.chatId, function(err, chat){
+    if(err){
+      res.status(400).json(err);
+    }else{
+      res.json(chat);
+    }
+  });
+});
+
+
 
 module.exports = router;
