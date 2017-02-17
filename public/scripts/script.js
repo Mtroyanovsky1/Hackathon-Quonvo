@@ -84,8 +84,13 @@ var answerChatToTab = function(chat) {
 };
 
 var updateChatTabs = function() {
+	$('.chat-list').empty();
 	allChats.forEach(function(chat) {
-		$('.chat-list').append(questionChatToTab(chat));
+		if (chat.questioner === myUserId) {
+			$('.chat-list').append(questionChatToTab(chat));
+		} else {
+			$('.chat-list').append(answerChatToTab(chat));
+		}
 	});
 }
 
@@ -243,7 +248,7 @@ $('.questions-list').on('click', '.question', function(event){
 Handling sending a message in currentChat
 */
 $('#send-button').on('click', function(){
-	if (!currentChat) return false;
+	if (!currentChat || $('#message-body').val() === '') return false;
 
 	console.log($('#message-body').val());
 
