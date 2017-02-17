@@ -36,7 +36,28 @@ $.ajax({
 		console.log('Retrieved questions: ', allQuestions);
 	}
 });
+/*
+Making an ajax call to populate answerChats global array
+*/
+$.ajax({
+	url: '/api/chats?kindofchat=answers',
+	success: function(chats) {
+		console.log("answerChats", chats)
+		answerChats = chats
+	}
+});
 
+/*
+Making an ajax call to populate questionChats global array
+*/
+
+$.ajax({
+	url: '/api/chats?kindofchat=questions',
+	success: function(chats) {
+		console.log("questionChats", chats);
+		questionChats = chats
+	}
+})
 
 
 $('.question_submit').on('click', function(event) {
@@ -62,11 +83,11 @@ $('.question_submit').on('click', function(event) {
 
 
 var messageToDiv = function(message) {
-	return '<div class="from-me">' + ${message.content} + '</div>';
+	return `<div class="from-me">${message.content}</div>`;
 };
 
 var messageFromDiv = function(message) {
-		return '<div class="to-me">' + ${message.content} + '</div>';
+		return `<div class="to-me">${message.content}</div>`;
 };
 
 
@@ -85,6 +106,8 @@ $('.questions-list').on('click', '.question', function(event){
 
 			currentChat = result;
 			currentQuestioner = result.questioner;
+
+			$('.chat-main').append(messageFromDiv(result.messages[0]));
 			// the first message Id of the chat is in results.message[0]
 			console.log(result);
 		}
