@@ -61,6 +61,11 @@ var questionSchema = mongoose.Schema({
 	chat: {
 		type: Schema.ObjectId,
 		ref: 'Chat'
+	},
+	state: {
+		type: 'String',
+		enum: ['open', 'closed', 'in_progress'],
+		default: 'open'
 	}
 });
 
