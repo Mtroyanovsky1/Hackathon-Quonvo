@@ -65,7 +65,83 @@ body {
   flex: 92;
   outline: 2px solid purple;
   width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-bottom: 2vw;
+  padding-top: 1vw;
 }
+
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  /*flex: 1;*/
+  border: 2px dashed blue;
+  height: 11vw;
+  width: 23vw;
+  margin: 1vh;
+  border-radius: 20px;
+}
+
+/*#question-before {
+  height: 1vh;
+  width: 25vw;
+}
+
+#question-after {
+  height: 2vh;
+  width: 25vw;
+}*/
+
+.question-title {
+  height: 3vw;
+  width: 23vw;
+  /*outline: 1px solid red;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#label {
+  height: 2vw;
+  line-height: 2vw;
+  text-align: center;
+  padding: 0 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.75vw;
+}
+
+.question-body-container {
+  height: 8vw;
+  /*max-height: 15.2vh;
+  max-width: 23vw;*/
+  width: 23vw;
+  /*outline: 1px solid red;*/
+  padding: 0 1vw 1vw 1vw;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 1vw;
+  text-align: justify;
+}
+
+/*#question-body {
+  width: 23vw;
+  height: 15.2vh;
+}*/
+
+/*CHAT SECTION*/
 
 .chat {
   flex: 2;
@@ -94,13 +170,13 @@ body {
 
 .compose-area {
   flex: 85;
-  height: 9.2vh;
+  height: calc(92vh / 10);
   outline: 2px solid green;
 }
 
 .compose-button {
   flex: 15;
-  height: 9.2vh;
+  height: calc(92vh / 10);
   outline: 2px solid green;
 }
 
