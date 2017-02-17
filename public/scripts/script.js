@@ -3,6 +3,7 @@
 /*
 Handling clicking on a question in question-list
 */
+var myUserId;
 
 var currentChat;
 var currentQuestioner;
@@ -19,8 +20,9 @@ socket.on('connected', function(data){
 	console.log('SHIT!!!!!!!!!!!');
 });
 
-socket.on('message', function(data){
-	console.log(data);
+socket.on('onConnect', function(userId){
+	console.log("userid", userId);
+	myUserId = userId;
 });
 
 function questionDivBuilder(questionObj){
