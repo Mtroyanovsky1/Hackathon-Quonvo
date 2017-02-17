@@ -28,7 +28,7 @@ function questionDivBuilder(questionObj){
 	str += '</div><div class="question-body-container">';
 	str += questionObj.content;
 	str += '</div></div>';
-	$('.questions-list').append(str);
+	return str;
 };
 
 /*
@@ -40,9 +40,9 @@ $.ajax({
 		allQuestions = assholes;
 		console.log('Retrieved questions: ', allQuestions);
 		allQuestions.forEach(function(question){
-			questionDivBuilder(question);
+			var questionStr = questionDivBuilder(question);
+			$('.questions-list').append(questionStr);
 		});
-
 	}
 });
 
