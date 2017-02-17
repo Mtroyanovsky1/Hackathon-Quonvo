@@ -9,6 +9,11 @@ $('#add-question-button').click(function() {
 	$('.modal').fadeIn('slow');
 })
 
+$('.modal-background').click(function() {
+	$('.modal').fadeOut('fast');
+	$('.modal-background').hide();
+})
+
 $('.fa-times').click(function() {
 	$('.modal').fadeOut('fast');
 	$('.modal-background').hide();
