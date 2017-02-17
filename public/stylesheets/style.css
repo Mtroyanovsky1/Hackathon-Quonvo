@@ -46,6 +46,29 @@ body {
   height: 8vh;
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left p {
+  color: white;
+  font-weight: bold;
+  font-size: 2vw;
+  padding: 0 15vw 0 0;
+  box-sizing: border-box;
+}
+
+.fa-trophy {
+  color: white;
+  margin-left: 4vw;
+}
+
+.fa-user-circle-o {
+  color: white;
+}
+
 /*BODY*/
 
 .body-container {
@@ -66,7 +89,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: #EBEBEB;
   /*border-right: 3px solid #fc5a5f;
   box-sizing: border-box;*/
 }
@@ -459,7 +482,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: #EBEBEB;
 }
 
 .archives-title {
