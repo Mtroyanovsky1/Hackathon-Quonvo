@@ -23,7 +23,7 @@ socket.on('connected', function(data){
 });
 
 socket.on('onConnect', function(userId){
-	console.log(userId);
+	console.log("userid", userId);
 	myUserId = userId;
 });
 //***********
