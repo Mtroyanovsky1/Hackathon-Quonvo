@@ -38,7 +38,7 @@ router.post('/api/questions/new', function(req, res){
 		author: req.user._id,
 		label: req.body.label
 	});
-	
+
 	question.save(function(err) {
 		if (err) {
 			res.status(400).json(err);

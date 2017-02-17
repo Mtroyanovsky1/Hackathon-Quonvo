@@ -29,17 +29,34 @@ Making an ajax call to populate allQuestions global array
 $.ajax({
 	url: '/api/questions',
 	success: function(assholes){
-		console.log(assholes);
 		allQuestions = assholes;
 		console.log('Retrieved questions: ', allQuestions);
-
 	}
+});
+
+$('.question_submit').on('click', function(event) {
+	$.ajax({
+		url: '/api/questions/new',
+		type: 'POST',
+		data: {
+			title: $('input[name=title]').val(),
+			content: $('input[name=content]').val(),
+			label: $('input[name=label]').val()
+		},
+		success: function(question) {
+			console.log(question);
+		},
+		error: function(error) {
+			console.log("fuck", error);
+		}
+
+	})
 });
 
 
 $('.questions-list').on('click', '.question', function(event){
 	event.preventDefault();
-	
+
 	// var question = $(this).children('.question-body-container').text();
 	// console.log($(this).children('.question-body-container').text());
 	$.ajax({
@@ -90,7 +107,7 @@ $('#send-button').on('click', function(){
 
 
 			/*
-				
+
 				<div class="chat-main">
 					<div class="clear"></div>
 			        <div class="from-them">
@@ -100,5 +117,3 @@ $('#send-button').on('click', function(){
 		}
   	});
 });
-
-
