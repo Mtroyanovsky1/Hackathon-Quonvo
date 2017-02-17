@@ -4,9 +4,12 @@
 Handling clicking on a question in question-list
 */
 
-var currentChatId;
+var currentChat;
 var currentQuestioner;
 var allQuestions;
+
+var questionChats;
+var answerChats; // /api/chats?kindofchat=answers
 
 //***********
 //sockets stuff
@@ -45,6 +48,29 @@ $.ajax({
 		});
 	}
 });
+/*
+Making an ajax call to populate answerChats global array
+*/
+$.ajax({
+	url: '/api/chats?kindofchat=answers',
+	success: function(chats) {
+		console.log("answerChats", chats)
+		answerChats = chats
+	}
+});
+
+/*
+Making an ajax call to populate questionChats global array
+*/
+
+$.ajax({
+	url: '/api/chats?kindofchat=questions',
+	success: function(chats) {
+		console.log("questionChats", chats);
+		questionChats = chats
+	}
+})
+
 
 $('.question_submit').on('click', function(event) {
 	$.ajax({
@@ -65,6 +91,17 @@ $('.question_submit').on('click', function(event) {
 	})
 });
 
+//function to replace the view html
+
+
+var messageToDiv = function(message) {
+	return `<div class="from-me">${message.content}</div>`;
+};
+
+var messageFromDiv = function(message) {
+		return `<div class="to-me">${message.content}</div>`;
+};
+
 $('.questions-list').on('click', '.question', function(event){
 	event.preventDefault();
 
@@ -77,9 +114,11 @@ $('.questions-list').on('click', '.question', function(event){
 		url: '/api/chats/new',
 		success: function(result){
 
-			currentChatId = result._id;
+			currentChat = result;
 			currentQuestioner = result.questioner;
-			// the first message Id of the chat is in results.messge[0]
+
+			$('.chat-main').append(messageFromDiv(result.messages[0]));
+			// the first message Id of the chat is in results.message[0]
 			console.log(result);
 		}
 	});
