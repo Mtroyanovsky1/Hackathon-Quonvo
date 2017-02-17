@@ -32,6 +32,10 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 
+router.get('/:anything', function(req, res) {
+  res.redirect('dashboard');
+});
+
 
 
 

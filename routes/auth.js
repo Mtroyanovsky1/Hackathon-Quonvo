@@ -7,7 +7,11 @@ module.exports = function(passport) {
 
   // GET registration page
   router.get('/signup', function(req, res) {
+    if(!req.user) {
     res.render('signup');
+    } else {
+      res.redirect('/dashboard')
+    }
   });
 
   router.post('/signup', function(req, res) {
@@ -34,7 +38,11 @@ module.exports = function(passport) {
 
   // GET Login page
   router.get('/login', function(req, res) {
+    if(!req.user) {
     res.render('login');
+    } else {
+      res.redirect('/dashboard')
+    }
   });
 
   // POST Login page
