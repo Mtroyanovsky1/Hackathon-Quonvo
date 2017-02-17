@@ -36,6 +36,7 @@ router.post('/api/chats/new', function(req, res) {
 
       //chat is associated with question
       question.chat = newChat._id;
+      question.state = 'in_progress';
       //chat is associated with current user and participating users
       user.answerChats.push(newChat._id);
       author.questionChats.push(newChat._id);
