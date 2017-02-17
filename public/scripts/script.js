@@ -6,7 +6,6 @@ Handling clicking on a question in question-list
 var myUserId;
 
 var currentChat;
-var currentQuestioner;
 var allQuestions;
 
 var questionChats;
@@ -40,9 +39,17 @@ socket.on('newChat', function(data) {
 	});
 });
 
+// server notifies recipient
+socket.on('getMessage', function(message) {
+	var m = $(messageFromDiv(message));
+	$('.chat-main').append(m);
+	m.hide().show('fast');
+});
+
 // displayChat
 var displayChat = function() {
 	$('.chat-main').empty();
+	if (!currentChat) return false;
 	currentChat.messages.forEach(function(message) {
 		console.log(message.to, myUserId);
 			if (message.to === myUserId) {
@@ -90,6 +97,10 @@ $.ajax({
 	success: function(chats) {
 		console.log("answerChats", chats)
 		answerChats = chats
+		if (chats.length >= 0) {
+			currentChat = chats[0];
+			displayChat();
+		}
 	}
 });
 
@@ -101,8 +112,12 @@ $.ajax({
 	success: function(chats) {
 		console.log("questionChats", chats);
 		questionChats = chats
+		if (!currentChat && chats.length >= 0) {
+			currentChat = chats[0];
+			displayChat();
+		}
 	}
-})
+});
 
 // new question submission handler
 $('.question_submit').on('click', function(event) {
@@ -158,7 +173,6 @@ $('.questions-list').on('click', '.question', function(event){
 		url: '/api/chats/new',
 		success: function(chat){
 			currentChat = chat;
-			currentQuestioner = chat.questioner;
 
 			$('.chat-main').append(messageFromDiv(chat.messages[0]));
 			// the first message Id of the chat is in results.message[0]
@@ -172,29 +186,25 @@ $('.questions-list').on('click', '.question', function(event){
 Handling clicking on a question in question-list
 */
 $('#send-button').on('click', function(){
+	if (!currentChat) return false;
 
 	console.log($('#message-body').val());
 
 	var messageContents = $('#message-body').val();
 	$('#message-body').val('');
 
-	console.log('HIT HERE!!!!!!!!!!!!!!!!!!');
-	console.log(currentChatId);
-	console.log(currentQuestioner);
+	var toId = currentChat.questioner !== myUserId ? currentChat.questioner : currentChat.answerer;
 
 	$.ajax({
-
-		type: "POST",
-		data: {
-			toId: currentQuestioner,
-			content: messageContents,
-			chatId: currentChatId
-		},
+		type: 'POST',
 		url: '/api/messages/new',
-		success: function(result){
-
-			$('.chat-main').append('<div class="clear"></div>');
-			$('.chat-main').append(`<div class="from-them">${result.content}</div>`);
+		data: {
+			toId: toId,
+			content: messageContents,
+			chatId: currentChat._id
+		},
+		success: function(message){
+			$('.chat-main').append(messageToDiv(message));
 		}
-  	});
+  });
 });
