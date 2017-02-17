@@ -23,6 +23,13 @@ socket.on('message', function(data){
 });
 //***********
 
+
+
+
+
+
+
+
 /*
 Making an ajax call to populate allQuestions global array
 */
@@ -31,8 +38,46 @@ $.ajax({
 	success: function(assholes){
 		allQuestions = assholes;
 		console.log('Retrieved questions: ', allQuestions);
+		console.log(allQuestions.length);
+		console.log('******');
+		console.log(allQuestions.length);
+		console.log('******');
+
+		for(var i=0; i<allQuestions.length; i++){
+			var str = '<div class="question"><div class="question-id"></div>';
+			str += '<div class="question-title">';
+			str += '<span id="label" class="CLASS OF LABEL">CSS</span>';
+			str += '</div><div class="question-body-container">';
+			str += allQuestions[i].content;
+			str += '</div></div>';
+			$('.questions-list').append(str);
+		}
 	}
 });
+
+
+
+
+
+
+/*
+Populate the left question panel
+*/
+// (function(){
+
+// 	for(var i=0; i<allQuestions.length; i++){
+
+// 		var str = '<div class="question"><div class="question-id"></div>';
+// 		str += '<div class="question-title">';
+// 		str += '<span id="label" class="CLASS OF LABEL">CSS</span>';
+// 		str += '</div><div class="question-body-container">';
+// 		str += question.content;
+// 		str += '</div></div>';
+
+
+// 		$('.questions-list').append(str);
+// 	}
+// }())
 
 $('.question_submit').on('click', function(event) {
 	$.ajax({
