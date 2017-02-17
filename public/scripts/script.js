@@ -20,6 +20,7 @@ Handling clicking on a question in question-list
 var myUserId;
 
 var currentChat;
+var allChats;
 var allQuestions;
 var inProgressQuestions;
 var questionChats;
@@ -59,6 +60,34 @@ socket.on('getMessage', function(message) {
 	$('.chat-main').append(m);
 	m.hide().show('fast');
 });
+
+// convert question chat to a chat tab
+var questionChatToTab = function(chat) {
+	return '<div class="questionchat-head"> \
+          	<div class="chat-id"></div> \ ' +
+						'<div style="display:none" class="chatId">'+
+			 				chat._id +
+						'</div>' +
+          	'<span class="fa fa-user-circle fa-4x"></span> \
+        	</div>';
+};
+
+// convert answer chat to a chat tab
+var answerChatToTab = function(chat) {
+	return '<div class="answerchat-head"> \
+          	<div class="chat-id"></div> \ ' +
+						'<div style="display:none" class="chatId">'+
+			 				chat._id +
+						'</div>' +
+          	'<span class="fa fa-user-circle fa-4x"></span> \
+        	</div>';
+};
+
+var updateChatTabs = function() {
+	allChats.forEach(function(chat) {
+		$('.chat-list').append(questionChatToTab(chat));
+	});
+}
 
 // displayChat
 var displayChat = function() {
@@ -103,41 +132,9 @@ $.ajax({
 	}
 });
 
-var questionsToTabs = function(question) {
-	return '<div class="chat-tab">'+
-				'<div style="display:none" class="chatId">'+
-	 				question.chatId +
-					'</div>'+
-					'</div>'
-}
-
-
-$.ajax({
-	url: '/api/questions/in_progress',
-	success: function(progress) {
-		inProgressQuestions = progress;
-		for(var i = 0; i < progress.length; i++) {
-			$('.chat-list').append(questionsToTabs(progress[i]));
-		}
-	}
-})
-
-
-
-//make an on click version of the shit above
-
-
-
-
-
 /*
 Making an ajax call to populate answerChats global array
 */
-
-
-
-
-
 $.ajax({
 	url: '/api/chats?kindofchat=answers',
 	success: function(chats) {
@@ -162,6 +159,18 @@ $.ajax({
 			currentChat = chats[0];
 			displayChat();
 		}
+	}
+});
+
+/*
+Making an ajax call to populate questionChats global array
+*/
+$.ajax({
+	url: '/api/chats?kindofchat=all',
+	success: function(chats) {
+		console.log("allChats", chats);
+		allChats = chats;
+		updateChatTabs();
 	}
 });
 
@@ -222,17 +231,16 @@ $('.questions-list').on('click', '.question', function(event){
 		url: '/api/chats/new',
 		success: function(chat){
 			currentChat = chat;
-			displayChat()
-			// $('.chat-main').append(messageFromDiv(chat.messages[0]));
-			// the first message Id of the chat is in results.message[0]
-			console.log(chat);
+			allChats.push(chat);
+			updateChatTabs();
+			displayChat();
 		}
 	});
 
 });
 
 /*
-Handling clicking on a question in question-list
+Handling sending a message in currentChat
 */
 $('#send-button').on('click', function(){
 	if (!currentChat) return false;
