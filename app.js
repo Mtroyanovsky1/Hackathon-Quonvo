@@ -42,11 +42,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Passport
-app.use(session({
+var mongoStore = new MongoStore({ mongooseConnection: mongoose.connection });
+var sessionMiddleware = session({
   secret: process.env.SECRET,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
+  store: mongoStore
+});
 
+app.use(sessionMiddleware);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -119,8 +121,49 @@ app.use(function(err, req, res, next) {
   });
 });
 
+//******Socket Stuff***********
+var server = require('http').createServer(app);
+var socketIo = require('socket.io');
+var io = socketIo(server);
+//*****************************
+// IO middleware
+// attach user session to new incoming socket
+io.use(function (socket, next) {
+  sessionMiddleware(socket.request, socket.request.res, next);
+});
+
+// global array of user sockets
+app.set('user_sockets', {});
+
+// new user has connected
+io.on('connection', function(socket){
+  var userId = socket.request.session.passport.user;
+  if (userId) {
+    if (!app.settings.user_sockets[userId]) {
+      app.settings.user_sockets[userId] = [];
+    }
+
+    app.settings.user_sockets[userId].push(socket.request.session);
+
+  } else {
+    console.log("USER IS NOT LOGGED IN");
+    return false;
+  }
+  socket.on('disconnect', function() {
+    app.settings.user_sockets[userId].splice(app.settings.user_sockets[userId].indexOf(socket), 1);
+    console.log('user has disconnected', app.settings.user_sockets[userId].length);
+  });
+
+  socket.emit('message', app.settings.user_sockets[userId].length);
+});
+//*****************************
+
+
 var port = process.env.PORT || 3000;
-app.listen(port);
+server.listen(port);
 console.log('Express started. Listening on port %s', port);
+
+
+
 
 module.exports = app;
