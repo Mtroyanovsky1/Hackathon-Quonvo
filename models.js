@@ -59,8 +59,8 @@ var questionSchema = mongoose.Schema({
 		default: 'general'
 	},
 	chat: {
-	type: Schema.ObjectId,
-	ref: 'Chat'
+		type: Schema.ObjectId,
+		ref: 'Chat'
 	}
 });
 

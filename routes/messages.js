@@ -38,7 +38,7 @@ router.post('/api/messages/new', function(res, req) {
     from: req.user._id,
     content: req.body.content,
     chat: req.body.chatId
-  })
+  });
   newMessage.save(function(err) {
     if(err) {
       res.status(400).json(err);

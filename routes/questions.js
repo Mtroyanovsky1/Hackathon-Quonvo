@@ -32,8 +32,12 @@ router.get('/api/questions/:questionId', function(req, res){
 });
 
 router.post('/api/questions/new', function(req, res){
-	var question = new Question(req.body);
-	question.author = req.user;
+	var question = new Question({
+		title: req.body.title,
+		content: req.body.content,
+		author: req.user._id,
+		label: req.body.label
+	});
 	
 	question.save(function(err) {
 		if (err) {
