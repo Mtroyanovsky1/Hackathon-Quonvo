@@ -68,7 +68,7 @@ router.post('/api/chats/new', function(req, res) {
                           // send to all users except author
                     			var user_sockets = req.app.settings.user_sockets;
                     			for (var userId in user_sockets) {
-                    				if (user_sockets.hasOwnProperty(userId) && author._id.equals(userId)) {
+                    				if (user_sockets.hasOwnProperty(userId) && !user._id.equals(userId)) {
                     					user_sockets[userId].forEach(function(userSocket) {
                     						userSocket.emit('newChat', {question: question, chat: newChat});
                     					});
