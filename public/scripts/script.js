@@ -274,6 +274,11 @@ Handling sending a message in currentChat
 $('#send-button').on('click', function(){
 	if (!currentChat || $('#message-body').val() === '') return false;
 
+	// if ($('#message-body').val().includes('script')) return false;
+	// if ($('#message-body').val().includes('<')) return false;
+	// if ($('#message-body').val().includes('>')) return false
+	$('#message-body').val($('#message-body').val().replace("script", ""));
+
 	console.log($('#message-body').val());
 
 	var messageContents = $('#message-body').val();
