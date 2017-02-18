@@ -9,6 +9,11 @@ $('#add-question-button').click(function() {
 	$('.modal').fadeIn('slow');
 })
 
+$('.modal-background').click(function() {
+	$('.modal').fadeOut('fast');
+	$('.modal-background').hide();
+})
+
 $('.fa-times').click(function() {
 	$('.modal').fadeOut('fast');
 	$('.modal-background').hide();
@@ -20,6 +25,7 @@ Handling clicking on a question in question-list
 var myUserId;
 
 var currentChat;
+var allChats;
 var allQuestions;
 var inProgressQuestions;
 var questionChats;
@@ -48,6 +54,8 @@ socket.on('newChat', function(data) {
 		if ($(this).children('.question-id').text() === data.question._id) {
 			$(this).hide('slow');
 			currentChat = data.chat;
+			allChats.push(data.chat);
+			updateChatTabs();
 			displayChat();
 		}
 	});
@@ -56,9 +64,49 @@ socket.on('newChat', function(data) {
 // server notifies recipient
 socket.on('getMessage', function(message) {
 	var m = $(messageFromDiv(message));
-	$('.chat-main').append(m);
-	m.hide().show('fast');
+	allChats.forEach(function(chat) {
+		if (chat._id === message.chat) {
+			allChats[allChats.indexOf(chat)].messages.push(message);
+		}
+		if (currentChat._id === message.chat) {
+			$('.chat-main').append(m);
+			m.hide().show('fast');
+		}
+	});
 });
+
+// convert question chat to a chat tab
+var questionChatToTab = function(chat) {
+	return '<div class="chat-head"> \
+          	<div class="chat-id"></div> \ ' +
+						'<div style="display:none" class="chatId">'+
+			 				chat._id +
+						'</div>' +
+          	'<div class="fa fa-user-circle fa-4x question-chat-head"></div> \
+        	</div>';
+};
+
+// convert answer chat to a chat tab
+var answerChatToTab = function(chat) {
+	return '<div class="chat-head"> \
+          	<div class="chat-id"></div> \ ' +
+						'<div style="display:none" class="chatId">'+
+			 				chat._id +
+						'</div>' +
+          	'<div class="fa fa-user-circle fa-4x answer-chat-head"></div> \
+        	</div>';
+};
+
+var updateChatTabs = function() {
+	$('.chat-list').empty();
+	allChats.forEach(function(chat) {
+		if (chat.questioner === myUserId && !chat.closed) {
+			$('.chat-list').append(questionChatToTab(chat));
+		} else {
+			$('.chat-list').append(answerChatToTab(chat));
+		}
+	});
+};
 
 // displayChat
 var displayChat = function() {
@@ -73,6 +121,16 @@ var displayChat = function() {
 			}
 	});
 };
+
+$('.chat-list').on('click', '.chat-head', function(event) {
+	event.preventDefault();
+	var currentChatId = $(this).children('.chatId').text();
+	currentChat = allChats.filter(function(chat) {
+		return chat._id === currentChatId;
+	})[0];
+
+	displayChat();
+});
 
 // build question DOM element
 function questionDivBuilder(questionObj){
@@ -114,41 +172,9 @@ $.ajax({
 	}
 });
 
-var questionsToTabs = function(question) {
-	return '<div class="chat-tab">'+
-				'<div style="display:none" class="chatId">'+
-	 				question.chatId +
-					'</div>'+
-					'</div>'
-}
-
-
-$.ajax({
-	url: '/api/questions/in_progress',
-	success: function(progress) {
-		inProgressQuestions = progress;
-		for(var i = 0; i < progress.length; i++) {
-			$('.chat-list').append(questionsToTabs(progress[i]));
-		}
-	}
-})
-
-
-
-//make an on click version of the shit above
-
-
-
-
-
 /*
 Making an ajax call to populate answerChats global array
 */
-
-
-
-
-
 $.ajax({
 	url: '/api/chats?kindofchat=answers',
 	success: function(chats) {
@@ -191,6 +217,18 @@ $.ajax({
 				$('.archives-list').append(archiveBubble);
 			}
 		}		
+	}
+});
+
+/*
+Making an ajax call to populate questionChats global array
+*/
+$.ajax({
+	url: '/api/chats?kindofchat=all',
+	success: function(chats) {
+		console.log("allChats", chats);
+		allChats = chats;
+		updateChatTabs();
 	}
 });
 
@@ -251,20 +289,24 @@ $('.questions-list').on('click', '.question', function(event){
 		url: '/api/chats/new',
 		success: function(chat){
 			currentChat = chat;
-
-			$('.chat-main').append(messageFromDiv(chat.messages[0]));
-			// the first message Id of the chat is in results.message[0]
-			console.log(chat);
+			allChats.push(chat);
+			updateChatTabs();
+			displayChat();
 		}
 	});
 
 });
 
 /*
-Handling clicking on a question in question-list
+Handling sending a message in currentChat
 */
 $('#send-button').on('click', function(){
-	if (!currentChat) return false;
+	if (!currentChat || $('#message-body').val() === '') return false;
+
+	// if ($('#message-body').val().includes('script')) return false;
+	// if ($('#message-body').val().includes('<')) return false;
+	// if ($('#message-body').val().includes('>')) return false
+	$('#message-body').val($('#message-body').val().replace("script", ""));
 
 	console.log($('#message-body').val());
 
@@ -282,9 +324,16 @@ $('#send-button').on('click', function(){
 			chatId: currentChat._id
 		},
 		success: function(message){
-			var poop = $(messageToDiv(message));
-			$('.chat-main').append(poop);
-			poop.hide().show('fast'); //TODO: Fix animation (assume success)
+			var m = $(messageToDiv(message));
+			allChats.forEach(function(chat) {
+				if (chat._id === message.chat) {
+					allChats[allChats.indexOf(chat)].messages.push(message);
+				}
+				if (currentChat._id === message.chat) {
+					$('.chat-main').append(m);
+					m.hide().show('fast');
+				}
+			});
 		}
   });
 });

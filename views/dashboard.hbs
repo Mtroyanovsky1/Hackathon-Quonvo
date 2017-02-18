@@ -64,19 +64,18 @@
       <!-- CHAT COMPOSE -->
 
       <div class="chat-compose">
+        <div class="endChat-button">
+          <i id="send-button" class="fa fa-comment-o fa-4x"></i>
+        </div>
         <div class="compose-area">
           <textarea id="message-body" type="text" name="message-body" placeholder="Your message here..."></textarea>
         </div>
         <div class="compose-button">
-          <i id="send-button" class="fa fa-telegram fa-4x"></i>
+          <i id="send-button" class="fa fa-comment-o fa-4x"></i>
         </div>
       </div>
 
       <div class="chat-list">
-        <div class="chat-head">
-          <div class="chat-id"></div>
-          <span class="fa fa-user-circle fa-4x"></span>
-        </div>
       </div>
     </div>
 
@@ -92,16 +91,12 @@
   </div>
 </div>
 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<!-- var str = '';
-  var str = '<div class="question"><div class="question-id">' + questionObj._id + '</div>';
-  str += '<div class="question-title">';
-  str += '<span id="label" class="' + questionObj.label + '-class">' + questionObj.label + '</span>';
-  str += '</div>';
-  str += '<div class="question-author" style="display: none;">' + questionObj.author + '</div>';
-  str += '<div class="question-body-container">';
-  str += questionObj.content;
-  str += '</div></div>';
-  return str;
- -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/scripts/script.js"></script>
 

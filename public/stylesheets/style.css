@@ -131,6 +131,7 @@ body {
   margin: 1vh;
   border-radius: 20px;
   background-color: rgba(252,90,95,0.5);
+  box-shadow: 3px 3px 1px #888888;
 }
 
 .question-id {
@@ -407,7 +408,7 @@ body {
 }
 
 .compose-area {
-  flex: 88;
+  flex: 76;
   height: 9.2vh;
   /*outline: 2px solid green;*/
   display: flex;
@@ -437,6 +438,15 @@ body {
   align-items: center;
   justify-content: center;
 }
+.endChat-button {
+  flex: 12;
+  height: 9.2vh;
+  /*outline: 2px solid green;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 #send-button {
   /*width: 6vh;

@@ -98,6 +98,8 @@ router.get('/api/chats', function(req, res){
     chatType = req.user.answerChats;
   }else if(req.query.kindofchat === 'questions'){
     chatType = req.user.questionChats;
+  }else if(req.query.kindofchat === 'all'){
+    chatType = req.user.questionChats.concat(req.user.answerChats);
   }else{
     return res.status(400).json({message: 'Invalid query'});
   }
