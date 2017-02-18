@@ -444,13 +444,14 @@ body {
 }
 
 #message-body {
-  width: 42vw;
+  width: 40vw;
   height: 6vh;
   resize: none;
   word-wrap: break-word;
   border-radius: 5px;
   font-family: "Helvetica Neue";
   padding: 0.5vw;
+  margin-left: 2vw;
 }
 
 #message-body:focus {
@@ -465,15 +466,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-.endChat-button {
-  flex: 12;
-  height: 9.2vh;
-  /*outline: 2px solid green;*/
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 
 #send-button {
   /*width: 6vh;
@@ -484,6 +476,8 @@ body {
   justify-content: center;
   background-color: transparent;
   border: 0;*/
+
+  color: #fc5a5f;
 }
 
 #send-button:hover {
@@ -519,11 +513,11 @@ body {
 }
 
 .question-chat-head {
-  color: orange;
+  color: #27ae60;
 }
 
 .answer-chat-head {
-  color: blue;
+  color: #fc5a5f;
 }
 
 .chat-id {
