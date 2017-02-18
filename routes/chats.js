@@ -90,6 +90,25 @@ router.post('/api/chats/new', function(req, res) {
 });
 
 
+
+router.get('/api/chats/:chatId/close', function(req, res) {
+	var chatId = req.params.chatId;
+
+	Chat.findByIdAndUpdate(chatId, {closed: true}, function(err, chat) {
+		if (err) {
+			res.status(400).json(err);
+		} else if (!chat) {
+			res.status(404).json({
+				message: "no question with that id"
+			});
+		} else {
+			res.json(chat);
+		}
+	});
+});
+
+
+
 router.get('/api/chats', function(req, res){
 
   var chatType;

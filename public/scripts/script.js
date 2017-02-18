@@ -194,6 +194,14 @@ $('#q-button').on('click', function(event) {
 	})
 });
 
+
+
+
+
+
+
+
+
 // add tabs for questions that are current in_progress
 
 
@@ -233,6 +241,28 @@ $('.questions-list').on('click', '.question', function(event){
 			console.log(chat);
 		}
 	});
+});
+
+
+
+$('.endChat-button').on('click', function(event) {
+	event.preventDefault();
+	var questionId = currentChat.question;
+	var chatId = currentChat._id;
+	$.ajax({
+	url: '/api/questions/' + questionId + '/close',
+	success: function(question) {
+		// console.log(question);
+		$.ajax({
+			url: '/api/chats/' + chatId + '/close',
+			success: function(chat) {
+				// console.log(chat);
+			}
+		});
+	}
+});
+
+
 
 });
 

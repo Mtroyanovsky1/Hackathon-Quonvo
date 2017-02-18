@@ -47,6 +47,8 @@ router.get('/api/questions/in_progress', function(req, res) {
 router.get('/api/questions/:questionId/close', function(req, res) {
 	var questionId = req.params.questionId;
 
+	console.log('HELLO WORLD');
+
 	Question.findByIdAndUpdate(questionId, {state: 'closed'}, function(err, question) {
 		if (err) {
 			res.status(400).json(err);
@@ -55,10 +57,22 @@ router.get('/api/questions/:questionId/close', function(req, res) {
 				message: "no question with that id"
 			});
 		} else {
+			console.log(2222222);
 			res.json(question);
 		}
 	});
 });
+
+
+
+
+
+
+
+
+
+
+
 
 router.get('/api/questions/:questionId', function(req, res){
 	var questionId = req.params.questionId;
@@ -75,6 +89,9 @@ router.get('/api/questions/:questionId', function(req, res){
 		}
 	});
 });
+
+
+
 
 router.post('/api/questions/new', function(req, res){
 	var question = new Question({
