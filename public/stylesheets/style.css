@@ -444,13 +444,14 @@ body {
 }
 
 #message-body {
-  width: 42vw;
+  width: 40vw;
   height: 6vh;
   resize: none;
   word-wrap: break-word;
   border-radius: 5px;
   font-family: "Helvetica Neue";
   padding: 0.5vw;
+  margin-left: 2vw;
 }
 
 #message-body:focus {
@@ -484,6 +485,7 @@ body {
   justify-content: center;
   background-color: transparent;
   border: 0;*/
+  color: #fc5a5f;
 }
 
 #send-button:hover {
