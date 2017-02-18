@@ -82,7 +82,7 @@ var questionChatToTab = function(chat) {
 						'<div style="display:none" class="chatId">'+
 			 				chat._id +
 						'</div>' +
-          	'<div class="fa fa-user-circle fa-4x question-chat-head"></div> \
+          	'<div class="fa fa-user-circle fa-3x question-chat-head"></div> \
         	</div>';
 };
 
@@ -93,7 +93,7 @@ var answerChatToTab = function(chat) {
 						'<div style="display:none" class="chatId">'+
 			 				chat._id +
 						'</div>' +
-          	'<div class="fa fa-user-circle fa-4x answer-chat-head"></div> \
+          	'<div class="fa fa-user-circle fa-3x answer-chat-head"></div> \
         	</div>';
 };
 
@@ -102,7 +102,7 @@ var updateChatTabs = function() {
 	allChats.forEach(function(chat) {
 		if (chat.questioner === myUserId && !chat.closed) {
 			$('.chat-list').append(questionChatToTab(chat));
-		} else {
+		} else if (!chat.closed) {
 			$('.chat-list').append(answerChatToTab(chat));
 		}
 	});
@@ -179,7 +179,7 @@ $.ajax({
 	url: '/api/chats?kindofchat=answers',
 	success: function(chats) {
 		console.log("answerChats", chats)
-		answerChats = chats
+		answerChats = chats;
 		if (chats.length >= 0) {
 			currentChat = chats[0];
 			displayChat();
@@ -199,26 +199,26 @@ $.ajax({
 			currentChat = chats[0];
 			displayChat();
 		}
-
-		/*
-			Display questionChats in Archive Section
-		*/
-		// console.log(questionChats);
-
-		for(var i=0; i<questionChats.length; i++){
-			if(questionChats[i].closed){
-				var currMessages = questionChats[i].messages;
-				var currMessagesQuestion = currMessages[0].content;
-				var currMessagesLength = currMessages.length;
-				var currMessagesQuestionId = currMessages.question;
-				var questionerId = currMessages.questioner;
-
-				var archiveBubble = archiveDivBuilder(currMessagesQuestion, currMessagesLength, currMessagesQuestionId, questionerId);
-				$('.archives-list').append(archiveBubble);
-			}
-		}		
 	}
 });
+
+var updateArchive = function() {
+	/*
+		Display closed Chats in Archive Section
+	*/
+	for(var i=0; i<allChats.length; i++){
+		if(allChats[i].closed){
+			var currMessages = allChats[i].messages;
+			var currMessagesQuestion = currMessages[0].content;
+			var currMessagesLength = currMessages.length;
+			var currMessagesQuestionId = currMessages.question;
+			var questionerId = currMessages.questioner;
+
+			var archiveBubble = archiveDivBuilder(currMessagesQuestion, currMessagesLength, currMessagesQuestionId, questionerId);
+			$('.archives-list').append(archiveBubble);
+		}
+	}
+};
 
 /*
 Making an ajax call to populate questionChats global array
@@ -229,11 +229,14 @@ $.ajax({
 		console.log("allChats", chats);
 		allChats = chats;
 		updateChatTabs();
+		updateArchive();
 	}
 });
 
 // new question submission handler
 $('#q-button').on('click', function(event) {
+	$('#q-input').val($('#q-input').val().replace("<script>", "(fuck_off_with_your_XSS_attack)"));
+
 	$.ajax({
 		url: '/api/questions/new',
 		type: 'POST',

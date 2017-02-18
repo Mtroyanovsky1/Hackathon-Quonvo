@@ -37,7 +37,7 @@
       <img id="logo" src="/images/Quonvo Maybe.png" alt="">
     </div>
     <div class="nav nav-right">
-      <i id="profile" class="fa fa-user-circle-o fa-3x"></i><span id="user">Moose&nbsp;&nbsp;<i class="fa fa-chevron-circle-down"></i></span>
+      <i id="profile" class="fa fa-user-circle-o fa-3x"></i><span id="user">{{username}}&nbsp;&nbsp;<i class="fa fa-chevron-circle-down"></i></span>
     </div>
   </div>
 
@@ -64,14 +64,11 @@
       <!-- CHAT COMPOSE -->
 
       <div class="chat-compose">
-        <div class="endChat-button">
-          <i id="send-button" class="fa fa-comment-o fa-4x"></i>
-        </div>
         <div class="compose-area">
           <textarea id="message-body" type="text" name="message-body" placeholder="Your message here..."></textarea>
         </div>
         <div class="compose-button">
-          <i id="send-button" class="fa fa-comment-o fa-4x"></i>
+          <i id="send-button" class="fa fa-comment fa-4x"></i>
         </div>
       </div>
 
@@ -99,4 +96,3 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script src="/scripts/script.js"></script>
-
