@@ -88,6 +88,17 @@ function questionDivBuilder(questionObj){
 	return str;
 };
 
+function archiveDivBuilder(currMessagesQuestion, currMessagesLength, currMessagesQuestionId, questionerId){
+	var str = '';
+	str += '<div class="question"><div class="question-id">' + currMessagesQuestionId;
+	str += '</div><div class="question-title"><span id="label" class="css-class"></span>';
+	str += '</div><div class="question-author" style="display: none;">' + questionerId;
+	str += '</div>';
+	str += '<div class="question-body-container">' + currMessagesQuestion + '</div>';
+	str += '<div class="question-body-container">Number of Messages: ' + currMessagesLength + '</div>';
+	return str;
+}
+
 /*
 Making an ajax call to populate allQuestions global array
 */
@@ -162,6 +173,24 @@ $.ajax({
 			currentChat = chats[0];
 			displayChat();
 		}
+
+		/*
+			Display questionChats in Archive Section
+		*/
+		// console.log(questionChats);
+
+		for(var i=0; i<questionChats.length; i++){
+			if(questionChats[i].closed){
+				var currMessages = questionChats[i].messages;
+				var currMessagesQuestion = currMessages[0].content;
+				var currMessagesLength = currMessages.length;
+				var currMessagesQuestionId = currMessages.question;
+				var questionerId = currMessages.questioner;
+
+				var archiveBubble = archiveDivBuilder(currMessagesQuestion, currMessagesLength, currMessagesQuestionId, questionerId);
+				$('.archives-list').append(archiveBubble);
+			}
+		}		
 	}
 });
 
