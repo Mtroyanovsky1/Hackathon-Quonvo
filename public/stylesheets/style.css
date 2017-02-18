@@ -49,20 +49,35 @@ body {
 .nav-left {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
-.nav-left p {
+.nav-left div {
   color: white;
   font-weight: bold;
   font-size: 2vw;
-  padding: 0 15vw 0 0;
-  box-sizing: border-box;
+  padding: 0 -5vw 0 5vw;
+  margin: 2vh 0;
+  margin-left: 1vw;
 }
 
 .fa-trophy {
   color: white;
-  margin-left: 4vw;
+  margin-left: 2vw;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-right span {
+  color: white;
+  font-weight: bold;
+  font-size: 2vw;
+  padding: 0 -5vw 0 5vw;
+  margin: 2vh 2vw 2vh 1vw;
 }
 
 .fa-user-circle-o {
@@ -104,19 +119,25 @@ body {
   font-size: 2vw;
   padding-top: 1vh;
   box-sizing: border-box;
+  font-weight: 500;
 }
 
 .questions-list {
   flex: 92;
   /*outline: 2px solid purple;*/
   width: 25vw;
-  display: flex;
+  /*display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-start;*/
   box-sizing: border-box;
   padding-bottom: 2vw;
-  padding-top: 1vw;
+  /*padding-top: 1vw;*/
+  overflow-y: scroll;
+}
+
+.questions-list::-webkit-scrollbar {
+  display: none !important;
 }
 
 .question {
@@ -131,7 +152,12 @@ body {
   margin: 1vh;
   border-radius: 20px;
   background-color: rgba(252,90,95,0.5);
-  box-shadow: 3px 3px 1px #888888;
+  /*box-shadow: 3px 3px 1px #888888;*/
+  box-shadow: 5px 5px 5px -2px #707070;
+}
+
+.question:hover {
+  cursor: pointer;
 }
 
 .question-id {
@@ -211,6 +237,7 @@ body {
   left: 19vw;
   z-index: 1;
   transition: transform 0.5s;
+  color: #fc5a5f;
 }
 
 #add-question-button:hover {
@@ -469,13 +496,34 @@ body {
 
 .chat-list {
   flex: 10;
-  width: 50vw;
+  width: 46vw;
   /*outline: 2px solid purple;*/
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 4vw;
-  box-sizing: border-box;
+  padding: 0 2vw;
+  /*box-sizing: border-box;*/
+  overflow-x: scroll;
+}
+
+.chat-list::-webkit-scrollbar {
+  display: none !important;
+}
+
+.chat-head {
+  margin: 0 1.2vw;
+}
+
+.chat-head:hover {
+  cursor: pointer;
+}
+
+.question-chat-head {
+  color: orange;
+}
+
+.answer-chat-head {
+  color: blue;
 }
 
 .chat-id {
@@ -505,10 +553,23 @@ body {
   font-size: 2vw;
   padding-top: 1vh;
   box-sizing: border-box;
+  font-weight: 500;
 }
 
 .archives-list {
   flex: 92;
   /*outline: 2px solid purple;*/
   width: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding-bottom: 2vw;
+  padding-top: 1vw;
+  overflow-y: scroll;
+}
+
+.archives-list::-webkit-scrollbar {
+  display: none !important;
 }
