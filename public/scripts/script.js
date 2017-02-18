@@ -181,11 +181,11 @@ $('#q-button').on('click', function(event) {
 		},
 		success: function(question) {
 			console.log(question);
-			$('.modal').hide('fast');
+			$('.modal').fadeOut('slow');
 			$('.modal-background').hide();
 			var questionStr = $(questionDivBuilder(question));
-			$('.questions-list').append(questionStr);
-			questionStr.hide().show('slow');
+			$('.questions-list').prepend(questionStr);
+			questionStr.hide().fadeIn('slow');
 		},
 		error: function(error) {
 			console.log("fuck", error);
