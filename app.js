@@ -19,7 +19,6 @@ REQUIRED_ENV.forEach(function(el) {
   }
 });
 
-
 mongoose.connect(connect);
 
 var models = require('./models');

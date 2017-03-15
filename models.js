@@ -78,8 +78,8 @@ var chatSchema = mongoose.Schema({
 		type: Number
 	},
 	messages: [{
-		type: Schema.ObjectId,
-		ref: 'Message'
+			type: Schema.ObjectId,
+			ref: 'Message'
 	}],
 	questioner: {
 		type: Schema.ObjectId,
